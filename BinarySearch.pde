@@ -22,18 +22,38 @@ private Item[] store = {new Item(184,14),
 };                             
 public int linearSearch(int catNumToFind)
 {
-    //complete this method
+    for (Item i : store) {
+        
+    }
     return -1;
 }
 public int binarySearch(int catNumToFind)
 {
-    //complete this method    
-    return -1;    
+    int nLow = 0;
+    int nHigh = store.length - 1;
+    while (nLow <= nHigh)
+    {
+        int mid = (nLow+nHigh)/2;
+        if(store[mid].getCatNum() == catNumToFind)
+            return mid;
+        else if(store[mid].getCatNum() < catNumToFind)
+            nLow = mid + 1;
+        else
+            nHigh = mid - 1;
+    }
+    return -1;
 }
 public int binarySearch(int catNumToFind,int nLow, int nHigh)
 {
-    //complete this method    
-    return -1;           
+    if (nHigh < nLow)
+        return -1;
+    int mid = (nLow+nHigh)/2;
+    if(store[mid].getCatNum() == catNumToFind)
+        return mid;
+    else if(store[mid].getCatNum() < catNumToFind)
+        return binarySearch(catNumToFind, mid + 1, nHigh);
+    else
+        return binarySearch(catNumToFind, nLow, mid - 1);         
 }
 public void setup()
 {
@@ -45,7 +65,7 @@ public void setup()
     {
 
         if(linearSearch(tests[i]) != -1)
-            System.out.println("Catalog #"+tests[i]+" has "+linearSearch(tests[i]) + " in stock");
+            System.out.println("Catalog #"+tests[i]+" has "+store[linearSearch(tests[i])].getInventory() + " in stock");
         else
             System.out.println("Catalog #"+tests[i]+" not found");
     }
@@ -56,7 +76,7 @@ public void setup()
     {
 
         if(binarySearch(tests[i]) != -1)
-            System.out.println("Catalog #"+tests[i]+" has "+binarySearch(tests[i]) + " in stock");
+            System.out.println("Catalog #"+tests[i]+" has "+store[binarySearch(tests[i])].getInventory() + " in stock");
         else
             System.out.println("Catalog #"+tests[i]+" not found");
     }
@@ -67,7 +87,7 @@ public void setup()
     {
 
         if(binarySearch(tests[i],0,store.length - 1) != -1)
-            System.out.println("Catalog #"+tests[i]+" has "+binarySearch(tests[i],0,store.length - 1) + " in stock");
+            System.out.println("Catalog #"+tests[i]+" has "+store[binarySearch(tests[i],0,store.length - 1)].getInventory() + " in stock");
         else
             System.out.println("Catalog #"+tests[i]+" not found");
     }
